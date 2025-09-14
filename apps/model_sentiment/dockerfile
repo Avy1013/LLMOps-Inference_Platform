@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+# Install dependencies
+RUN pip install --no-cache-dir fastapi uvicorn transformers torch
+
+# Copy app (choose one later when building)
+COPY . /app
+WORKDIR /app
+
+# Expose FastAPI default port
+EXPOSE 8000
+
+# Run the app
+CMD ["uvicorn", "sentiment_app:app", "--host", "0.0.0.0", "--port", "8000"]
+
