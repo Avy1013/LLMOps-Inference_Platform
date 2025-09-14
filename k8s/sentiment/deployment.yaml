@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sentiment-deployment
+  labels:
+    app: sentiment
+    gpu: "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sentiment
+      gpu: "true"
+  template:
+    metadata:
+      labels:
+        app: sentiment
+        gpu: "true"
+    spec:
+      nodeSelector:
+        agentpool: gpunode1
+        beta.kubernetes.io/arch: arm64
+      containers:
+      - name: sentiment
+        image: avy1013/sentiment-app:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "1"
+            memory: "1Gi"
