@@ -1,0 +1,31 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: avy
+username: avy
+# Link this consumer to the secret containing the API key
+credentials:
+- avy-apikey
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: avy-apikey
+stringData:
+  # The key must be 'key' for the key-auth plugin
+  key: "my-secret-api-key"
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: vaibhav
+username: vaibhav
+credentials:
+- vaibhav-apikey
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vaibhav-apikey
+stringData:
+  key: "another-super-secret-key"

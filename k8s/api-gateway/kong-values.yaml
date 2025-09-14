@@ -1,0 +1,3 @@
+nodeSelector:
+  agentpool: nodepool1
+  beta.kubernetes.io/arch: amd64
