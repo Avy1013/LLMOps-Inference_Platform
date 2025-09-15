@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: avy-apikey
+  labels:
+    konghq.com/credential: key-auth # This is required for the key-auth plugin to work
+stringData:
+  kongCredType: key-auth
+  # The key must be 'key' for the key-auth plugin
+  key: "my-secret-api-key"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vaibhav-apikey
+  labels:
+    konghq.com/credential: key-auth # This is required for the key-auth plugin to work
+stringData:
+  kongCredType: key-auth # This is required for the key-auth plugin to work
+  key: "another-super-secret-key"
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: avy
+  annotations:
+    kubernetes.io/ingress.class: kong # This is required for the key-auth plugin to work
+username: avy
+# Link this consumer to the secret containing the API key
+credentials:
+- avy-apikey
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: vaibhav
+  annotations:
+    kubernetes.io/ingress.class: kong # This is required for the key-auth plugin to work
+username: vaibhav
+credentials:
+- vaibhav-apikey

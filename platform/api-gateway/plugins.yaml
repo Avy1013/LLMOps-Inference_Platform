@@ -1,0 +1,29 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: key-auth
+plugin: key-auth
+config:
+  key_names:
+  - apikey # Expect the API key in a header named 'apikey'
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: rate-limiting-by-consumer
+plugin: rate-limiting
+config:
+  hour: 100
+  limit_by: consumer
+  policy: local
+---
+# Enable Prometheus metrics globally so /metrics is exposed
+apiVersion: configuration.konghq.com/v1
+kind: KongClusterPlugin
+metadata:
+  name: prometheus
+  annotations:
+    kubernetes.io/ingress.class: kong
+  labels:
+    global: "true"
+plugin: prometheus

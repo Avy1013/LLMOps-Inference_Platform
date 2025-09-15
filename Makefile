@@ -18,13 +18,13 @@ all: build-all push-all
 build-all: build-generator build-sentiment build-credit
 
 build-generator:
-	docker build -t $(IMG_GENERATOR) apps/model_generator
+	docker build -t $(IMG_GENERATOR) services/generator/src
 
 build-sentiment:
-	docker build -t $(IMG_SENTIMENT) apps/model_sentiment
+	docker build -t $(IMG_SENTIMENT) services/sentiment/src
 
 build-credit:
-	docker build -t $(IMG_CREDIT) apps/credit_service
+	docker build -t $(IMG_CREDIT) services/credit/src
 
 push-all: push-generator push-sentiment push-credit
 
@@ -38,16 +38,16 @@ push-credit:
 	docker push $(IMG_CREDIT)
 
 deploy-all:
-	kubectl apply -f k8s/credit_service/
-	kubectl apply -f k8s/generator/
-	kubectl apply -f k8s/sentiment/
-	kubectl apply -f k8s/api-gateway/
+	kubectl apply -f services/credit/chart/
+	kubectl apply -f services/generator/chart/
+	kubectl apply -f services/sentiment/chart/
+	kubectl apply -f platform/api-gateway/
 
 undeploy-all:
-	kubectl delete -f k8s/credit_service/
-	kubectl delete -f k8s/generator/
-	kubectl delete -f k8s/sentiment/
-	kubectl delete -f k8s/api-gateway/
+	kubectl delete -f services/credit/chart/
+	kubectl delete -f services/generator/chart/
+	kubectl delete -f services/sentiment/chart/
+	kubectl delete -f platform/api-gateway/
 
 # --- TLS Utilities ---
 # Generate self-signed certs and create TLS secrets for Ingress

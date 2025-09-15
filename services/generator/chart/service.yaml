@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: generator-service
+spec:
+  type: ClusterIP
+  selector:
+    app: generator
+  ports:
+  - port: 80
+    targetPort: 8000

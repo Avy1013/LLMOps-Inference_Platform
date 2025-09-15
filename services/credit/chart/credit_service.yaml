@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: credit-service
+  labels:
+    app: credit-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: credit-service
+  template:
+    metadata:
+      labels:
+        app: credit-service
+    spec:
+      nodeSelector:
+        beta.kubernetes.io/arch: arm64
+      containers:
+      - name: credit-service
+        image: avy1013/credit-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 2
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: credit-service
+spec:
+  type: ClusterIP
+  selector:
+    app: credit-service
+  ports:
+  - port: 80
+    targetPort: 8000
