@@ -25,7 +25,8 @@ def setup_database(conn):
         username TEXT PRIMARY KEY,
         credits INTEGER NOT NULL
     );
-    """)
+    """
+    )
     # Seed initial users with credits (add more users as needed)
     initial_users = ['avy', 'vaibhav']
     for user in initial_users:
@@ -41,6 +42,19 @@ def get_cursor():
         yield cursor
     finally:
         db_connection.commit()
+
+@app.get("/healthz")
+def healthz():
+    return {"status": "ok"}
+
+@app.get("/readyz")
+def readyz():
+    try:
+        with get_cursor() as cursor:
+            cursor.execute("SELECT 1")
+        return {"status": "ready"}
+    except Exception:
+        raise HTTPException(status_code=503, detail="db not ready")
 
 # --- API Endpoint ---
 @app.post("/check")

@@ -5,7 +5,7 @@ metadata:
   annotations:
     konghq.com/strip-path: "true"
     # The key-auth plugin MUST be listed here to be active.
-    konghq.com/plugins: key-auth, rate-limiting-by-consumer
+    konghq.com/plugins: key-auth, rate-limiting-by-consumer, prometheus
 spec:
   ingressClassName: kong
   rules:
