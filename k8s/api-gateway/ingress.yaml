@@ -8,6 +8,10 @@ metadata:
     konghq.com/plugins: key-auth, rate-limiting-by-consumer, prometheus
 spec:
   ingressClassName: kong
+  tls:
+  - hosts:
+    - llm.local
+    secretName: llm-tls
   rules:
   - http:
       paths:

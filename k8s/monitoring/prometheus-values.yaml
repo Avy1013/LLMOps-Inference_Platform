@@ -1,0 +1,55 @@
+# prometheus-values.yaml
+
+# Disable components we don't need for a lightweight setup
+alertmanager:
+  enabled: false
+
+# Configure Prometheus for low resource usage
+prometheus:
+  prometheusSpec:
+    # Set low resource requests and limits
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 200m
+        memory: 512Mi
+    # Keep metrics for a shorter period to save disk space
+    retention: 24h
+    # Important: This allows Prometheus to find monitoring configurations (ServiceMonitors)
+    # in other namespaces, like 'default' where Kong is.
+    serviceMonitorNamespaceSelector: {}
+    serviceMonitorSelector: {}
+    podMonitorSelector: {}
+
+# Configure Grafana for low resource usage
+grafana:
+  grafana.ini:
+    server:
+      root_url: "%(protocol)s://%(domain)s/grafana/"
+      serve_from_sub_path: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
+
+# --- Kong Integration ---
+# This section tells Prometheus how to find and scrape metrics from Kong.
+# It creates a ServiceMonitor resource that looks for the Kong proxy service.
+additionalServiceMonitors:
+- name: kong-servicemonitor
+  # Select targets across namespaces, including 'default' where Kong runs
+  namespaceSelector: {}
+  selector:
+    matchLabels:
+      # This label must match the 'my-kong-kong-proxy' service labels
+      app.kubernetes.io/instance: my-kong
+      app.kubernetes.io/component: app
+  endpoints:
+  - port: kong-proxy # Port name on the Kong proxy Service
+    # The prometheus plugin exposes metrics on the /metrics path
+    path: /metrics

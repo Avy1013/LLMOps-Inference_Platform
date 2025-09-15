@@ -13,3 +13,9 @@ ingressController:
     publishService: default/my-kong-kong-proxy
 proxy:
   type: LoadBalancer
+admin:
+  enabled: true
+  type: ClusterIP
+  http:
+    enabled: true
+    servicePort: 8001

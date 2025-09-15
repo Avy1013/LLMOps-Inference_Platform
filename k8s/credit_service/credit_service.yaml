@@ -19,6 +19,7 @@ spec:
       containers:
       - name: credit-service
         image: avy1013/credit-service:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
         livenessProbe:

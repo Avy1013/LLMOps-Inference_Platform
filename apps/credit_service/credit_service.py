@@ -7,7 +7,7 @@ import uvicorn
 
 # --- Configuration ---
 DB_PATH = ":memory:" # Use an in-memory DB for this simple example
-STARTING_CREDITS = 5
+STARTING_CREDITS = 100
 
 app = FastAPI(title="Credit Service")
 logging.basicConfig(level=logging.INFO)
