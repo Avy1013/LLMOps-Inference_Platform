@@ -37,16 +37,6 @@ generator = pipeline(
     device=-1  # CPU
 )
 
-@app.get("/healthz")
-def healthz():
-    return {"status": "ok"}
-
-@app.get("/readyz")
-def readyz():
-    if generator is None:
-        raise HTTPException(status_code=503, detail="model not loaded")
-    return {"status": "ready"}
-
 class Request(BaseModel):
     prompt: str
 

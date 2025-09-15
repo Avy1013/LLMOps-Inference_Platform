@@ -13,7 +13,7 @@ metadata:
   name: rate-limiting-by-consumer
 plugin: rate-limiting
 config:
-  hour: 100
+  hour: 5  
   limit_by: consumer
   policy: local
 ---
@@ -24,6 +24,13 @@ metadata:
   name: prometheus
   annotations:
     kubernetes.io/ingress.class: kong
+    konghq.com/plugins: prometheus
   labels:
     global: "true"
 plugin: prometheus
+config:
+  status_code_metrics: true
+  latency_metrics: true
+  bandwidth_metrics: true
+  upstream_health_metrics: true
+  per_consumer: true

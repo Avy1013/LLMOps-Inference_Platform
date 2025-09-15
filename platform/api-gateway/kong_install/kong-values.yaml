@@ -13,9 +13,24 @@ ingressController:
     publishService: default/my-kong-kong-proxy
 proxy:
   type: LoadBalancer
+  http:
+    enabled: true
+  metrics:
+    enabled: true            # create a metrics port/service so /metrics is exposed
+    serviceMonitor:
+      enabled: true         # only if Prometheus Operator is installed
+      namespace: monitoring # namespace where Prometheus watches ServiceMonitors (optional)
+      interval: 15s         # scrape interval
+      labels:
+        release: prometheus  # ensure ServiceMonitor has correct labels
 admin:
   enabled: true
   type: ClusterIP
   http:
     enabled: true
-    servicePort: 8001
+    servicePort: 8001 
+status:
+  enabled: true
+  http:
+    enabled: true
+    servicePort: 8100 

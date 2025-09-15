@@ -1,20 +1,21 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: kong
-  namespace: monitoring        # where Prometheus Operator (kube-prometheus) runs / watches
+  name: kong-gateway-metrics
+  namespace: monitoring
   labels:
     release: prometheus
 spec:
   namespaceSelector:
     matchNames:
-      - default                # namespace where my-kong-kong-admin lives
+      - default
   selector:
     matchLabels:
       app.kubernetes.io/name: kong
       app.kubernetes.io/instance: my-kong
   endpoints:
-    - port: kong-admin         # use the admin port where metrics are exposed
+    - port: status          # must match svc port name (from kubectl get svc)
       path: /metrics
       interval: 15s
-      honorLabels: true
+
+

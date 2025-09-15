@@ -37,16 +37,6 @@ classifier = pipeline(
     device=-1  # CPU
 )
 
-@app.get("/healthz")
-def healthz():
-    return {"status": "ok"}
-
-@app.get("/readyz")
-def readyz():
-    if classifier is None:
-        raise HTTPException(status_code=503, detail="model not loaded")
-    return {"status": "ready"}
-
 class Request(BaseModel):
     text: str
 

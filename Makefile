@@ -1,4 +1,4 @@
-.PHONY: build-all push-all build-generator build-sentiment build-credit push-generator push-sentiment push-credit deploy-all undeploy-all
+.PHONY: build-all push-all build-generator build-sentiment build-credit push-generator push-sentiment push-credit deploy-all undeploy-all deploy-services deploy-platform
 .PHONY: tls-secrets create-monitoring-ns
 
 # Simple Docker builds for host architecture (arm64 if you build on Apple Silicon or arm runners)
@@ -16,6 +16,8 @@ IMG_CREDIT := $(REG)/credit-service:$(TAG)
 all: build-all push-all
 
 build-all: build-generator build-sentiment build-credit
+
+build-push-credit: build-credit push-credit
 
 build-generator:
 	docker build -t $(IMG_GENERATOR) services/generator/src
@@ -37,17 +39,28 @@ push-sentiment:
 push-credit:
 	docker push $(IMG_CREDIT)
 
+deploy-services:
+	kubectl apply -f services/credit/chart/
+	kubectl apply -f services/generator/chart/
+	kubectl apply -f services/sentiment/chart/
+
+deploy-platform:
+	kubectl apply -f platform/api-gateway/
+	kubectl apply -f platform/monitoring/
+
 deploy-all:
 	kubectl apply -f services/credit/chart/
 	kubectl apply -f services/generator/chart/
 	kubectl apply -f services/sentiment/chart/
 	kubectl apply -f platform/api-gateway/
+	kubectl apply -f platform/monitoring/
 
 undeploy-all:
 	kubectl delete -f services/credit/chart/
 	kubectl delete -f services/generator/chart/
 	kubectl delete -f services/sentiment/chart/
 	kubectl delete -f platform/api-gateway/
+	kubectl delete -f platform/monitoring/
 
 # --- TLS Utilities ---
 # Generate self-signed certs and create TLS secrets for Ingress

@@ -6,7 +6,7 @@ metadata:
     app: generator
     gpu: "true"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: generator
@@ -34,44 +34,16 @@ spec:
           value: "/cache"
         - name: PYTORCH_HOME
           value: "/cache/torch"
-        - name: TOKENIZERS_PARALLELISM
-          value: "false"
         ports:
         - containerPort: 8000
         volumeMounts:
         - name: cache-volume
           mountPath: /cache
-        - name: tmp-volume
-          mountPath: /tmp
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: false
           runAsNonRoot: true
           runAsUser: 1000
-        startupProbe:
-          httpGet:
-            path: /healthz
-            port: 8000
-          # Allow up to ~10 minutes for first successful start (model download/load)
-          periodSeconds: 10
-          failureThreshold: 60
-          timeoutSeconds: 5
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8000
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 8000
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 3
         resources:
           requests:
             cpu: "500m"
@@ -81,6 +53,4 @@ spec:
             memory: "1Gi"
       volumes:
       - name: cache-volume
-        emptyDir: {}
-      - name: tmp-volume
         emptyDir: {}
