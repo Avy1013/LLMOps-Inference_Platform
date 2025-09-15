@@ -4,9 +4,8 @@ metadata:
   name: llm-api-ingress
   annotations:
     konghq.com/strip-path: "true"
-    # Apply the rate-limiting plugins
-    # The key-auth plugin is now attached via a label to the consumer
-    konghq.com/plugins: rate-limiting-by-consumer
+    # The key-auth plugin MUST be listed here to be active.
+    konghq.com/plugins: key-auth, rate-limiting-by-consumer
 spec:
   ingressClassName: kong
   rules:

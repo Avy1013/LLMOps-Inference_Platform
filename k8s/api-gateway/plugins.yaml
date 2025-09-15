@@ -1,22 +1,11 @@
-# apiVersion: configuration.konghq.com/v1
-# kind: KongPlugin
-# metadata:
-#   name: key-auth
-# plugin: key-auth
-# config:
-#   key_names:
-#   - apikey # Expect the API key in a header named 'apikey'
-# ---
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
 metadata:
-  name: key-auth-avy
-  labels:
-    konghq.com/consumer: avy
+  name: key-auth
 plugin: key-auth
 config:
   key_names:
-  - apikey
+  - apikey # Expect the API key in a header named 'apikey'
 ---
 apiVersion: configuration.konghq.com/v1
 kind: KongPlugin
@@ -24,6 +13,6 @@ metadata:
   name: rate-limiting-by-consumer
 plugin: rate-limiting
 config:
-  hour: 5
+  hour: 10
   limit_by: consumer
   policy: local
