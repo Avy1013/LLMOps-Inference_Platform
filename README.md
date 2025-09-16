@@ -2,6 +2,10 @@
 
 This project implements a scalable LLM (Large Language Model) inference platform on Kubernetes, designed to serve machine learning models as APIs. It includes features like API authentication, rate limiting, usage tracking with a credit system, and monitoring.
 
+## 🖼️ Architecture Diagram
+
+![LLM Inference Platform Architecture](./architecture.png)
+
 Video Walkthrough: https://drive.google.com/file/d/1WCzX7hqHu7a-KI0SgvhBk7nvG2h9GKYd/view?usp=sharing
 
 ## 🛠️ Tools & Technologies
