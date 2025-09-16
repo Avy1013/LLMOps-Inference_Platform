@@ -1,44 +1,57 @@
-# LLM Inference Platform
+# LLM Inference Platform 🚀
 
 This project implements a scalable LLM (Large Language Model) inference platform on Kubernetes, designed to serve machine learning models as APIs. It includes features like API authentication, rate limiting, usage tracking with a credit system, and monitoring.
 
-## Features
+## 🛠️ Tools & Technologies
 
-- **Scalable LLM Services**: Two models are deployed:
-    - **Text Generation**: Generates text based on a prompt.
-    - **Sentiment Analysis**: Analyzes the sentiment of a given text.
-- **API Gateway**: Uses Kong as an API gateway for:
-    - **Authentication**: API key-based authentication for users.
-    - **Rate Limiting**: Per-user rate limiting to control usage.
-    - **Path-Based Routing**: Routes requests to the appropriate backend service.
-- **Usage Tracking & Credits**: A dedicated service tracks API usage and manages a credit system. Users are blocked when their credits run out.
-- **Monitoring**: Integrated with Prometheus and Grafana for observing:
+| Tool | Description | Logo |
+|------|-------------|------|
+| **Kubernetes** | Container orchestration platform | ![Kubernetes](https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png) |
+| **Kong** | API Gateway for authentication & routing | ![Kong](https://konghq.com/wp-content/uploads/2018/05/kong-combination-mark-color-256px.png) |
+| **FastAPI** | Modern Python web framework for APIs | ![FastAPI](https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png) |
+| **Prometheus** | Monitoring and alerting toolkit | ![Prometheus](https://prometheus.io/assets/prometheus_logo_orange_circle.svg) |
+| **Grafana** | Analytics and monitoring platform | ![Grafana](https://grafana.com/static/img/menu/grafana2.svg) |
+| **Docker** | Containerization platform | ![Docker](https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png) |
+| **Helm** | Kubernetes package manager | ![Helm](https://helm.sh/img/helm.svg) |
+| **Hugging Face** | Machine learning model hub | ![Hugging Face](https://huggingface.co/front/assets/huggingface_logo-noborder.svg) |
+
+## ✨ Features
+
+- **🤖 Scalable LLM Services**: Two models are deployed:
+    - **📝 Text Generation**: Generates text based on a prompt.
+    - **😊 Sentiment Analysis**: Analyzes the sentiment of a given text.
+- **🛡️ API Gateway**: Uses Kong as an API gateway for:
+    - **🔐 Authentication**: API key-based authentication for users.
+    - **⏱️ Rate Limiting**: Per-user rate limiting to control usage.
+    - **🛤️ Path-Based Routing**: Routes requests to the appropriate backend service.
+- **💳 Usage Tracking & Credits**: A dedicated service tracks API usage and manages a credit system. Users are blocked when their credits run out.
+- **📊 Monitoring**: Integrated with Prometheus and Grafana for observing:
     - Request counts and latency.
     - CPU/Memory utilization.
     - A pre-configured Grafana dashboard is included.
-- **Health Checks**: Liveness and readiness probes for all services to ensure reliability.
-- **GPU Scheduling**: Demonstrates scheduling workloads to nodes with GPU support (simulated).
-- **Security**:
+- **❤️ Health Checks**: Liveness and readiness probes for all services to ensure reliability.
+- **🎮 GPU Scheduling**: Demonstrates scheduling workloads to nodes with GPU support (simulated).
+- **🔒 Security**:
     - TLS termination at the ingress gateway.
     - Kubernetes secrets for sensitive data.
     - Hardened security contexts for containers.
 
-## Architecture
+## 🏗️ Architecture
 
 The platform consists of the following components:
 
-1.  **Kong API Gateway**: The single entry point for all API traffic. It handles authentication, rate limiting, and routing to backend services.
-2.  **LLM Services**:
+1.  **🌉 Kong API Gateway**: The single entry point for all API traffic. It handles authentication, rate limiting, and routing to backend services.
+2.  **🤖 LLM Services**:
     - `generator-service`: A FastAPI application serving a text generation model (`distilgpt2`).
     - `sentiment-service`: A FastAPI application serving a sentiment analysis model (`distilbert-base-uncased-finetuned-sst-2-english`).
-3.  **Credit Service**: A FastAPI application that manages user credits using an in-memory SQLite database.
-4.  **Monitoring Stack**:
+3.  **💰 Credit Service**: A FastAPI application that manages user credits using an in-memory SQLite database.
+4.  **📈 Monitoring Stack**:
     - **Prometheus**: Scrapes metrics from the API gateway and other services.
     - **Grafana**: Provides a dashboard for visualizing the collected metrics.
 
 All services are deployed on a Kubernetes cluster.
 
-## Repository Structure
+## 📁 Repository Structure
 
 ```
 .
@@ -59,17 +72,17 @@ All services are deployed on a Kubernetes cluster.
 └── Makefile                # Makefile for common tasks
 ```
 
-## Prerequisites
+## 📋 Prerequisites
 
-- `kubectl`
-- A Kubernetes cluster (e.g., Minikube, Kind, or a cloud provider)
-- `docker`
-- `make` (optional, for convenience)
-- `openssl` (for generating TLS certificates)
-- `helm` (for deploying Kong and Prometheus)
-- `curl` (for testing the API)
+- `kubectl` ⚡
+- A Kubernetes cluster (e.g., Minikube, Kind, or a cloud provider) ☁️
+- `docker` 🐳
+- `make` (optional, for convenience) 🔨
+- `openssl` (for generating TLS certificates) 🔐
+- `helm` (for deploying Kong and Prometheus) ⛵
+- `curl` (for testing the API) 🌐
 
-## Setup Instructions
+## 🚀 Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -87,7 +100,7 @@ Ensure your Kubernetes cluster is running and `kubectl` is configured to connect
 kubectl label nodes <your-node-name> gpu=true
 ```
 
-### 3. Deploy Monitoring Stack
+### 3. Deploy Monitoring Stack 📊
 
 Deploy Prometheus and Grafana to the `monitoring` namespace.
 
@@ -98,7 +111,7 @@ helm repo update
 helm install prometheus prometheus-community/kube-prometheus-stack -n monitoring -f platform/monitoring/prometheus-values.yaml
 ```
 
-### 4. Deploy Kong API Gateway
+### 4. Deploy Kong API Gateway 🌉
 
 Deploy Kong to the `kong` namespace.
 
@@ -109,7 +122,7 @@ helm repo update
 helm install kong kong/kong -n kong -f platform/api-gateway/kong_install/kong-values.yaml
 ```
 
-### 5. Create TLS Secret
+### 5. Create TLS Secret 🔐
 
 Generate a self-signed TLS certificate and create a Kubernetes secret.
 
@@ -117,7 +130,7 @@ Generate a self-signed TLS certificate and create a Kubernetes secret.
 make tls-secrets
 ```
 
-### 6. Deploy Applications
+### 6. Deploy Applications 🚀
 
 Apply the Kubernetes manifests for all services.
 
@@ -127,11 +140,11 @@ make deploy-all
 
 This will deploy the credit service, the two LLM services, and configure the ingress routes and plugins.
 
-## Usage
+## 🎯 Usage
 
 To use the API, you need an API key. The system is pre-configured with two users: `avy` and `vaibhav`.
 
-**API Keys:**
+**🔑 API Keys:**
 -   `avy`: `my-secret-api-key`
 -   `vaibhav`: `another-super-secret-key`
 
@@ -156,7 +169,7 @@ echo "$KONG_IP llm.local" | sudo tee -a /etc/hosts
 echo "$KONG_IP grafana.local" | sudo tee -a /etc/hosts
 ```
 
-### Text Generation
+### 📝 Text Generation
 
 ```sh
 curl -i -k -X POST https://llm.local/model/generator/generate \
@@ -167,7 +180,7 @@ curl -i -k -X POST https://llm.local/model/generator/generate \
   }'
 ```
 
-### Sentiment Analysis
+### 😊 Sentiment Analysis
 
 ```sh
 curl -i -k -X POST https://llm.local/model/sentiment/predict \
@@ -178,7 +191,7 @@ curl -i -k -X POST https://llm.local/model/sentiment/predict \
   }'
 ```
 
-## Monitoring
+## 📊 Monitoring
 
 Access the Grafana dashboard to view metrics. The ingress is configured for `grafana.local`.
 
@@ -189,12 +202,26 @@ kubectl get secret -n monitoring prometheus-grafana -o jsonpath="{.data.admin-pa
 
 Open your browser to `https://grafana.local`. Log in with username `admin` and the password you retrieved. You should find a pre-configured dashboard for the LLM services.
 
-## Future Improvements
+## 🔮 Future Improvements
 
-- **Use Helm Charts**: Refactor the Kubernetes manifests in the `k8s` directory into Helm charts. This will make the deployments more manageable, configurable, and reusable. For example, a single chart could be created for the ML services, and different `values.yaml` files could be used to deploy the `generator` and `sentiment` models.
-- **Persistent Storage for Credit Service**: The credit service currently uses an in-memory SQLite database, which means all credit data is lost when the service restarts. For a production-like system, this should be replaced with a persistent database like PostgreSQL or MySQL.
-- **CI/CD Pipeline**: Implement a CI/CD pipeline (e.g., using GitHub Actions) to automate the building, testing, and deployment of the applications. This would include steps for running tests, building Docker images, pushing them to a registry, and updating the Kubernetes deployments.
-- **Configuration Management**: Centralize configuration using a tool like Helm `values.yaml` or Kustomize, instead of hardcoding values in environment variables or Kubernetes manifests. For example, the `CREDIT_SERVICE_URL` in the application code.
-- **Enhanced Security**:
+- **📦 Use Helm Charts**: Refactor the Kubernetes manifests in the `k8s` directory into Helm charts. This will make the deployments more manageable, configurable, and reusable. For example, a single chart could be created for the ML services, and different `values.yaml` files could be used to deploy the `generator` and `sentiment` models.
+- **💾 Persistent Storage for Credit Service**: The credit service currently uses an in-memory SQLite database, which means all credit data is lost when the service restarts. For a production-like system, this should be replaced with a persistent database like PostgreSQL or MySQL.
+- **🔄 CI/CD Pipeline**: Implement a CI/CD pipeline (e.g., using GitHub Actions) to automate the building, testing, and deployment of the applications. This would include steps for running tests, building Docker images, pushing them to a registry, and updating the Kubernetes deployments.
+- **⚙️ Configuration Management**: Centralize configuration using a tool like Helm `values.yaml` or Kustomize, instead of hardcoding values in environment variables or Kubernetes manifests. For example, the `CREDIT_SERVICE_URL` in the application code.
+- **🛡️ Enhanced Security**:
     - Use a secret management tool like HashiCorp Vault or Sealed Secrets to manage secrets more securely than plain Kubernetes Secrets.
     - Implement network policies to restrict traffic between pods.
+
+---
+
+## 🌟 Star This Repo!
+
+If you found this project helpful, please give it a star! ⭐
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
