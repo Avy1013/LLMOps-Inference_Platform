@@ -7,7 +7,7 @@ This project implements a scalable LLM (Large Language Model) inference platform
 | Tool | Description | Logo |
 |------|-------------|------|
 | **Kubernetes** | Container orchestration platform for managing containerized applications | <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg" width="50" height="50"> |
-| **Kong** | API Gateway for authentication, routing, and rate limiting | <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Kong_Logo.svg" width="50" height="50"> |
+| **Kong** | API Gateway for authentication, routing, and rate limiting | <img src="https://media.licdn.com/dms/image/v2/D4E0BAQHv7yIWJEYuMQ/company-logo_200_200/company-logo_200_200/0/1721680122463/konghq_logo?e=1761177600&v=beta&t=jrR5ityTJqZrX-XdbxzZ8poHg7RIite8nmBUGrbVWhg" width="50" height="50"> |
 | **FastAPI** | Modern Python web framework for building high-performance APIs | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="50" height="50"> |
 | **Prometheus** | Monitoring and alerting toolkit for collecting time-series data | <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Prometheus_software_logo.svg" width="50" height="50"> |
 | **Grafana** | Analytics and monitoring platform for visualizing metrics | <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg" width="50" height="50"> |
