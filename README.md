@@ -6,14 +6,14 @@ This project implements a scalable LLM (Large Language Model) inference platform
 
 | Tool | Description | Logo |
 |------|-------------|------|
-| **Kubernetes** | Container orchestration platform | ![Kubernetes](https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.png) |
-| **Kong** | API Gateway for authentication & routing | ![Kong](https://konghq.com/wp-content/uploads/2018/05/kong-combination-mark-color-256px.png) |
-| **FastAPI** | Modern Python web framework for APIs | ![FastAPI](https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png) |
-| **Prometheus** | Monitoring and alerting toolkit | ![Prometheus](https://prometheus.io/assets/prometheus_logo_orange_circle.svg) |
-| **Grafana** | Analytics and monitoring platform | ![Grafana](https://grafana.com/static/img/menu/grafana2.svg) |
-| **Docker** | Containerization platform | ![Docker](https://www.docker.com/wp-content/uploads/2022/03/vertical-logo-monochromatic.png) |
-| **Helm** | Kubernetes package manager | ![Helm](https://helm.sh/img/helm.svg) |
-| **Hugging Face** | Machine learning model hub | ![Hugging Face](https://huggingface.co/front/assets/huggingface_logo-noborder.svg) |
+| **Kubernetes** | Container orchestration platform for managing containerized applications | <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg" width="50" height="50"> |
+| **Kong** | API Gateway for authentication, routing, and rate limiting | <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Kong_Logo.svg" width="50" height="50"> |
+| **FastAPI** | Modern Python web framework for building high-performance APIs | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="50" height="50"> |
+| **Prometheus** | Monitoring and alerting toolkit for collecting time-series data | <img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Prometheus_software_logo.svg" width="50" height="50"> |
+| **Grafana** | Analytics and monitoring platform for visualizing metrics | <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Grafana_logo.svg" width="50" height="50"> |
+| **Docker** | Platform for developing and running applications in containers | <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="50" height="50"> |
+| **Helm** | Kubernetes package manager for deploying applications | <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Helm-logo.svg" width="50" height="50"> |
+| **Hugging Face** | Machine learning model hub and transformers library | <img src="https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.svg" width="50" height="50"> |
 
 ## ✨ Features
 
